@@ -1,5 +1,7 @@
 import './StatsCards.css'
 
+const CO2_PER_KWH = 0.389 // kg CO₂ per kWh (Dutch grid average, 2024)
+
 function fmt(n, decimals = 2) {
   return n.toFixed(decimals)
 }
@@ -9,6 +11,18 @@ export default function StatsCards({ liveWatts, dayData, yearData, tariff, showS
   const todayCost = todayKwh * tariff
   const projectedKwh = (todayKwh / (new Date().getHours() + 1)) * 24
   const projectedCost = projectedKwh * tariff
+
+  const todayCo2 = todayKwh * CO2_PER_KWH
+  const projectedCo2 = projectedKwh * CO2_PER_KWH
+
+  let peakHour = null
+  let peakKwh = 0
+  for (const point of dayData) {
+    if (point.kwh > peakKwh) {
+      peakKwh = point.kwh
+      peakHour = point.label
+    }
+  }
 
   const currentKwh  = yearData.at(-1)?.kwh ?? 0
   const previousKwh = yearData.at(-2)?.kwh ?? 0
@@ -36,6 +50,16 @@ export default function StatsCards({ liveWatts, dayData, yearData, tariff, showS
       label: 'Tariff',
       value: `€ ${fmt(tariff, 4)}`,
       sub: 'per kWh',
+    },
+    {
+      label: 'CO₂ today',
+      value: `${fmt(todayCo2, 2)} kg`,
+      sub: `${fmt(projectedCo2, 2)} kg projected`,
+    },
+    {
+      label: 'Peak hour',
+      value: peakHour ?? '—',
+      sub: peakHour ? `${fmt(peakKwh, 3)} kWh` : 'no data',
     },
   ]
 
