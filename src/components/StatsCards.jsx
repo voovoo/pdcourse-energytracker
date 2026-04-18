@@ -64,13 +64,14 @@ export default function StatsCards({ liveWatts, dayData, yearData, tariff, showS
       value: `${savedKwh >= 0 ? '-' : '+'}${fmt(Math.abs(savedKwh), 1)} kWh`,
       sub: `€ ${fmt(Math.abs(savedCost))} vs last month`,
       accent: savedKwh >= 0 ? 'green' : 'red',
+      wide: true,
     })
   }
 
   return (
     <div className="stats-grid">
       {cards.map(card => (
-        <div key={card.label} className={`stat-card ${card.accent || ''}`}>
+        <div key={card.label} className={`stat-card ${card.accent || ''} ${card.wide ? 'wide' : ''}`}>
           <span className="stat-label">{card.label}</span>
           <span className="stat-value">{card.value}</span>
           <span className="stat-sub">{card.sub}</span>

@@ -88,3 +88,47 @@
   color: var(--text-muted);
   margin-top: 2px;
 }
+
+.stat-card.wide {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  gap: 0;
+  padding: 14px 24px;
+  background: linear-gradient(90deg, rgba(62,207,110,0.12) 0%, rgba(62,207,110,0.04) 60%, transparent 100%);
+  border-color: var(--green);
+  box-shadow: 0 0 32px var(--green-glow), inset 0 1px 0 rgba(62,207,110,0.15);
+  overflow: hidden;
+}
+
+.stat-card.wide::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0%   { left: -60%; }
+  100% { left: 120%; }
+}
+
+.stat-card.wide .stat-label {
+  min-width: 140px;
+  color: var(--green);
+}
+
+.stat-card.wide .stat-value {
+  font-size: 18px;
+  color: var(--green);
+  flex: 1;
+}
+
+.stat-card.wide .stat-sub {
+  font-size: 13px;
+  color: rgba(62,207,110,0.6);
+  margin-top: 0;
+}
