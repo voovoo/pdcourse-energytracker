@@ -31,6 +31,14 @@ function KwhTooltip({ active, payload, label, tariff }) {
 
 function LiveGraph({ points }) {
   const avg = Math.round(points.reduce((s, p) => s + p.watts, 0) / points.length)
+  const now = new Date()
+  const maxT = points[points.length - 1]?.t ?? 0
+  const ticks = points.filter((_, i) => i % 30 === 0).map(p => p.t)
+  const timeFormatter = t => {
+    const d = new Date(now - (maxT - t) * 2000)
+    return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`
+  }
+
   return (
     <ResponsiveContainer width="100%" height="100%">
       <AreaChart data={points} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
@@ -41,7 +49,8 @@ function LiveGraph({ points }) {
           </linearGradient>
         </defs>
         <CartesianGrid stroke="var(--grid)" strokeDasharray="3 3" vertical={false} />
-        <XAxis dataKey="t" hide />
+        <XAxis dataKey="t" ticks={ticks} tickFormatter={timeFormatter}
+               tick={TICK_STYLE} axisLine={false} tickLine={false} />
         <YAxis domain={['auto', 'auto']} tick={TICK_STYLE} width={50}
                tickFormatter={v => `${v}W`} />
         <Tooltip content={<LiveTooltip />} />
