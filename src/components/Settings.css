@@ -1,23 +1,25 @@
 .settings-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 100;
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .settings-panel {
   background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: 18px;
+  border: 1px solid var(--border-strong);
+  border-radius: 22px;
   width: 380px;
   max-width: calc(100vw - 40px);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
 }
 
 .settings-header {
@@ -30,25 +32,28 @@
 
 .settings-header h2 {
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   margin: 0;
   color: var(--text);
+  letter-spacing: -0.01em;
 }
 
 .close-btn {
-  background: transparent;
-  border: none;
+  background: var(--surface-3);
+  border: 1px solid var(--border);
   color: var(--text-muted);
   font-size: 16px;
   cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 6px;
-  transition: background 0.15s;
+  padding: 4px 10px;
+  border-radius: 8px;
+  transition: background 0.15s, color 0.15s;
+  line-height: 1.5;
 }
 
 .close-btn:hover {
   background: var(--surface-3);
   color: var(--text);
+  border-color: var(--border-strong);
 }
 
 .settings-body {
@@ -59,8 +64,10 @@
 }
 
 .field-label {
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   color: var(--text-muted);
 }
 
@@ -68,9 +75,15 @@
   display: flex;
   align-items: center;
   background: var(--surface-1);
-  border: 1px solid var(--border);
-  border-radius: 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
   overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.field-row:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
 }
 
 .field-prefix {
@@ -78,9 +91,10 @@
   color: var(--text-muted);
   font-size: 15px;
   border-right: 1px solid var(--border);
-  height: 44px;
+  height: 46px;
   display: flex;
   align-items: center;
+  font-weight: 600;
 }
 
 .field-input {
@@ -91,7 +105,7 @@
   color: var(--text);
   font-size: 15px;
   padding: 0 14px;
-  height: 44px;
+  height: 46px;
 }
 
 .field-error {
@@ -104,7 +118,7 @@
   font-size: 12px;
   color: var(--text-muted);
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .settings-footer {
@@ -116,25 +130,26 @@
 }
 
 .btn-primary, .btn-secondary {
-  padding: 9px 20px;
-  border-radius: 8px;
+  padding: 10px 22px;
+  border-radius: 10px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   border: none;
-  transition: opacity 0.15s;
+  transition: opacity 0.15s, transform 0.15s;
 }
 
 .btn-primary {
   background: var(--accent);
   color: #fff;
+  box-shadow: 0 0 16px var(--accent-glow);
 }
 
 .btn-secondary {
   background: var(--surface-3);
   color: var(--text);
+  border: 1px solid var(--border-strong);
 }
 
-.btn-primary:hover, .btn-secondary:hover {
-  opacity: 0.85;
-}
+.btn-primary:hover  { opacity: 0.88; transform: translateY(-1px); }
+.btn-secondary:hover { opacity: 0.85; }

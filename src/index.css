@@ -1,18 +1,23 @@
 :root {
-  --bg:        #0d1117;
-  --surface-1: #161b22;
-  --surface-2: #1c2128;
-  --surface-3: #262d36;
-  --border:    #30363d;
-  --text:      #e6edf3;
-  --text-muted:#7d8590;
-  --accent:    #4493f8;
-  --teal:      #3fb950;
-  --purple:    #bc8cff;
-  --green:     #3fb950;
-  --amber:     #d29922;
-  --red:       #f85149;
-  --grid:      rgba(255,255,255,0.05);
+  --bg:        #080c12;
+  --surface-1: #0e1420;
+  --surface-2: #131a24;
+  --surface-3: #1c2535;
+  --border:    #ffffff12;
+  --border-strong: #ffffff20;
+  --text:      #eaf0f8;
+  --text-muted:#5a6a80;
+  --accent:    #4d9eff;
+  --accent-glow: rgba(77,158,255,0.25);
+  --teal:      #3ecf6e;
+  --purple:    #c084fc;
+  --green:     #3ecf6e;
+  --green-glow: rgba(62,207,110,0.2);
+  --amber:     #f5a623;
+  --amber-glow: rgba(245,166,35,0.2);
+  --red:       #ff5757;
+  --red-glow:  rgba(255,87,87,0.2);
+  --grid:      rgba(255,255,255,0.04);
 }
 
 *, *::before, *::after {
@@ -23,6 +28,8 @@
 
 body {
   background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(77,158,255,0.07) 0%, transparent 70%);
   color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;

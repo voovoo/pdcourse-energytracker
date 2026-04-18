@@ -47,11 +47,6 @@ export default function StatsCards({ liveWatts, dayData, yearData, tariff, showS
       sub: `€ ${fmt(projectedCost)}`,
     },
     {
-      label: 'Tariff',
-      value: `€ ${fmt(tariff, 4)}`,
-      sub: 'per kWh',
-    },
-    {
       label: 'CO₂ today',
       value: `${fmt(todayCo2, 2)} kg`,
       sub: `${fmt(projectedCo2, 2)} kg projected`,

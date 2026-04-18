@@ -1,7 +1,7 @@
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
 }
 
 @media (max-width: 700px) {
@@ -10,32 +10,73 @@
 
 .stat-card {
   background: var(--surface-2);
-  border-radius: 14px;
-  padding: 18px 20px;
+  border-radius: 18px;
+  padding: 20px 22px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   border: 1px solid var(--border);
-  transition: border-color 0.2s;
+  box-shadow: 0 1px 20px rgba(0,0,0,0.3);
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
 }
 
-.stat-card.green  { border-color: var(--green); }
-.stat-card.amber  { border-color: var(--amber); }
-.stat-card.red    { border-color: var(--red); }
+.stat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.25s;
+  pointer-events: none;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+}
+
+.stat-card.green {
+  border-color: var(--green);
+  box-shadow: 0 0 24px var(--green-glow), 0 1px 20px rgba(0,0,0,0.3);
+}
+.stat-card.green::before {
+  background: radial-gradient(ellipse at top left, rgba(62,207,110,0.08) 0%, transparent 65%);
+  opacity: 1;
+}
+
+.stat-card.amber {
+  border-color: var(--amber);
+  box-shadow: 0 0 24px var(--amber-glow), 0 1px 20px rgba(0,0,0,0.3);
+}
+.stat-card.amber::before {
+  background: radial-gradient(ellipse at top left, rgba(245,166,35,0.08) 0%, transparent 65%);
+  opacity: 1;
+}
+
+.stat-card.red {
+  border-color: var(--red);
+  box-shadow: 0 0 24px var(--red-glow), 0 1px 20px rgba(0,0,0,0.3);
+}
+.stat-card.red::before {
+  background: radial-gradient(ellipse at top left, rgba(255,87,87,0.08) 0%, transparent 65%);
+  opacity: 1;
+}
 
 .stat-label {
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 10px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: var(--text-muted);
 }
 
 .stat-value {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--text);
   line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 .stat-card.green .stat-value { color: var(--green); }
@@ -45,4 +86,5 @@
 .stat-sub {
   font-size: 13px;
   color: var(--text-muted);
+  margin-top: 2px;
 }
