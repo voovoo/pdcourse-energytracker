@@ -4,11 +4,16 @@ function fmt(n, decimals = 2) {
   return n.toFixed(decimals)
 }
 
-export default function StatsCards({ liveWatts, dayData, tariff }) {
+export default function StatsCards({ liveWatts, dayData, yearData, tariff, showSavings }) {
   const todayKwh = dayData.reduce((sum, d) => sum + d.kwh, 0)
   const todayCost = todayKwh * tariff
   const projectedKwh = (todayKwh / (new Date().getHours() + 1)) * 24
   const projectedCost = projectedKwh * tariff
+
+  const currentKwh  = yearData.at(-1)?.kwh ?? 0
+  const previousKwh = yearData.at(-2)?.kwh ?? 0
+  const savedKwh    = previousKwh - currentKwh
+  const savedCost   = savedKwh * tariff
 
   const cards = [
     {
@@ -33,6 +38,15 @@ export default function StatsCards({ liveWatts, dayData, tariff }) {
       sub: 'per kWh',
     },
   ]
+
+  if (showSavings) {
+    cards.push({
+      label: 'Monthly savings',
+      value: `${savedKwh >= 0 ? '-' : '+'}${fmt(Math.abs(savedKwh), 1)} kWh`,
+      sub: `€ ${fmt(Math.abs(savedCost))} vs last month`,
+      accent: savedKwh >= 0 ? 'green' : 'red',
+    })
+  }
 
   return (
     <div className="stats-grid">

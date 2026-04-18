@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useLiveData } from './hooks/useLiveData'
 import { generateDayData, generateWeekData, generateYearData } from './utils/simulation'
+import { experimentIsRunning } from './utils/experiments'
 import TimeToggle from './components/TimeToggle'
 import StatsCards from './components/StatsCards'
 import EnergyGraph from './components/EnergyGraph'
@@ -50,7 +51,9 @@ export default function App() {
         <StatsCards
           liveWatts={currentWatts}
           dayData={dayData}
+          yearData={yearData}
           tariff={tariff}
+          showSavings={experimentIsRunning('monthly-savings') & (yearData.length >= 2)}
         />
 
         <section className="graph-section">
