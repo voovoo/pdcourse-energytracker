@@ -78,3 +78,23 @@ export function generateYearData() {
     return { label: months[i], kwh: +kwh.toFixed(1) }
   }).filter(Boolean)
 }
+
+// Generates a CSV string for monthly usage and triggers a file download.
+// tariff — EUR/kWh rate used to calculate cost column.
+// year   — calendar year to label the filename (defaults to current year).
+export function exportMonthlyCSV(tariff, year = new Date().getFullYear()) {
+  const data = generateYearData()
+  const rows = [
+    ['Month', 'kWh', 'Cost (EUR)'],
+    ...data.map(({ label, kwh }) => [label, kwh, (kwh * tariff).toFixed(2)]),
+  ]
+  const csv = rows.map(r => r.join(',')).join('\n')
+
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = `energy-${year}.csv`
+  a.click()
+  URL.revokeObjectURL(url)
+}
