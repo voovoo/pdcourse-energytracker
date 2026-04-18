@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { nextLiveWatts } from '../utils/simulation'
+import { nextLiveWatts } from '../utils/meter'
 
 const MAX_POINTS = 60 // 2 minutes of history at 2s intervals
 

@@ -1,4 +1,4 @@
-import { dayData, weekData, yearData } from '../utils/simulation.js'
+import { dayData, weekData, yearData } from '../utils/meter.js'
 
 // Base URL of the real backend. Set VITE_API_URL in .env to point at a live server.
 // If unset, all calls fall back to local mock data.
