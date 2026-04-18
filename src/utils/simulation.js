@@ -42,7 +42,7 @@ export function nextLiveWatts() {
   return Math.max(50, Math.round(liveWatts))
 }
 
-export function generateDayData() {
+export function dayData() {
   const now = new Date()
   const currentHour = now.getHours()
   return Array.from({ length: 24 }, (_, h) => {
@@ -53,7 +53,7 @@ export function generateDayData() {
   }).filter(Boolean)
 }
 
-export function generateWeekData() {
+export function weekData() {
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
   const today = new Date().getDay()
   return Array.from({ length: 7 }, (_, i) => {
@@ -66,7 +66,7 @@ export function generateWeekData() {
   })
 }
 
-export function generateYearData() {
+export function yearData() {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                   'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   // Winter months use more energy (heating)
@@ -83,7 +83,7 @@ export function generateYearData() {
 // tariff — EUR/kWh rate used to calculate cost column.
 // year   — calendar year to label the filename (defaults to current year).
 export function exportMonthlyCSV(tariff, year = new Date().getFullYear()) {
-  const data = generateYearData()
+  const data = yearData()
   const rows = [
     ['Month', 'kWh', 'Cost (EUR)'],
     ...data.map(({ label, kwh }) => [label, kwh, (kwh * tariff).toFixed(2)]),

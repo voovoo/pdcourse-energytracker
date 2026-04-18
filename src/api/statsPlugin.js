@@ -1,4 +1,4 @@
-import { generateDayData } from '../utils/simulation.js'
+import { dayData } from '../utils/simulation.js'
 
 // Vite dev-server plugin that exposes energy stats as a local REST API.
 // Registered in vite.config.js.
@@ -14,7 +14,7 @@ export function statsApiPlugin() {
 
         res.setHeader('Content-Type', 'application/json')
         res.setHeader('Access-Control-Allow-Origin', '*')
-        res.end(JSON.stringify(generateDayData()))
+        res.end(JSON.stringify(dayData()))
       })
     },
   }

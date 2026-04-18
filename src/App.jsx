@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useLiveData } from './hooks/useLiveData'
-import { generateDayData, generateWeekData, generateYearData } from './utils/simulation'
+import { fetchDayData, fetchWeekData, fetchYearData } from './api/energy'
 import { experimentIsRunning } from './utils/experiments'
 import TimeToggle from './components/TimeToggle'
 import StatsCards from './components/StatsCards'
@@ -16,15 +16,18 @@ export default function App() {
   const livePoints = useLiveData()
   const currentWatts = livePoints[livePoints.length - 1]?.watts ?? 0
 
-  const [dayData,  setDayData]  = useState(() => generateDayData())
-  const [weekData, setWeekData] = useState(() => generateWeekData())
-  const [yearData, setYearData] = useState(() => generateYearData())
+  const [dayData,  setDayData]  = useState([])
+  const [weekData, setWeekData] = useState([])
+  const [yearData, setYearData] = useState([])
 
-  // Refresh static datasets once per minute
   useEffect(() => {
-    const id = setInterval(() => {
-      setDayData(generateDayData())
-    }, 60_000)
+    fetchDayData().then(setDayData)
+    fetchWeekData().then(setWeekData)
+    fetchYearData().then(setYearData)
+  }, [])
+
+  useEffect(() => {
+    const id = setInterval(() => fetchDayData().then(setDayData), 60_000)
     return () => clearInterval(id)
   }, [])
 
