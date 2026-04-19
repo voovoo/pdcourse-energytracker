@@ -1,5 +1,8 @@
 import './StatsCards.css'
 
+// NEED REFACTORING: business logic (CO2 calc, peak-hour loop, monthly savings)
+// should be extracted out of this UI component into a custom hook or utility.
+
 const CO2_PER_KWH = 0.389 // kg CO₂ per kWh (Dutch grid average, 2024)
 
 function fmt(n, decimals = 2) {
